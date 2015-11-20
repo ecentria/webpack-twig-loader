@@ -18,7 +18,7 @@ module.exports = function(content) {
             throw new Error('File name not found in "' + id + '"');
 	}
 
-    id = matches.length ? matches[1] : id;
+        id = matches.length ? matches[1] : id;
 	twig({ id: id, data: content }).compile({ module: 'node' });
 
 	return 'module.exports = ' + tpl.match(/(?:twig\()(.*)(?:\))/m)[1] + ';';
