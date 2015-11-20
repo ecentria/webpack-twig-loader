@@ -1,25 +1,25 @@
 var utils = require("loader-utils"),
 
-	twig = require('twig').twig;
+    twig = require('twig').twig;
 
 module.exports = function(content) {
 
-	var id = this.resource,
-            matches,
-            tpl;
+    var id = this.resource,
+        matches,
+        tpl;
 
-	if (!id) {
-            throw new Error('File name is empty.');
-	}
+    if (!id) {
+        throw new Error('File name is empty.');
+    }
 
-	matches = id.match(/([^/\?#]+).*$/);
+    matches = id.match(/([^/\?#]+).*$/);
 
-	if (matches === null) {
-            throw new Error('File name not found in "' + id + '"');
-	}
+    if (matches === null) {
+        throw new Error('File name not found in "' + id + '"');
+    }
 
-        id = matches.length ? matches[1] : id;
-        twig({ id: id, data: content }).compile({ module: 'node' });
+    id = matches.length ? matches[1] : id;
+    twig({ id: id, data: content }).compile({ module: 'node' });
 
-	return 'module.exports = ' + tpl.match(/(?:twig\()(.*)(?:\))/m)[1] + ';';
+    return 'module.exports = ' + tpl.match(/(?:twig\()(.*)(?:\))/m)[1] + ';';
 }
