@@ -3,6 +3,7 @@ var utils = require("loader-utils"),
 	twig = require('twig').twig;
 
 module.exports = function(content) {
+	this.cacheable();
 
 	var id = this.resource;
 
