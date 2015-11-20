@@ -19,7 +19,7 @@ module.exports = function(content) {
 	}
 
         id = matches.length ? matches[1] : id;
-	twig({ id: id, data: content }).compile({ module: 'node' });
+        twig({ id: id, data: content }).compile({ module: 'node' });
 
 	return 'module.exports = ' + tpl.match(/(?:twig\()(.*)(?:\))/m)[1] + ';';
 }
