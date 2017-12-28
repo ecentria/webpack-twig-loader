@@ -1,7 +1,7 @@
 var Twig = require('twig');
 
 module.exports = function(content) {
-    var id = this.resource, matches, template, compiled, query, isCacheEnabled = false;
+    var id = this.resource, matches, template, compile = false, compiled, query, isCacheEnabled = false;
 
     this.cacheable();
 
@@ -31,6 +31,7 @@ module.exports = function(content) {
     // Checking for cached template
     template = Twig.twig({ ref: id, rethrow: true });
     if (template === null) {
+        compile = true;
         template = Twig.twig({ id: id, data: content, rethrow: true });
     }
 
@@ -41,6 +42,12 @@ module.exports = function(content) {
         });
     }
 
-    compiled = template.compile({ module: 'node' });
-    return 'module.exports = ' + compiled.match(/(?:twig\()(.*)(?:\))/m)[1] + ';';
+    if (compile) {
+        compiled = template.compile({ module: 'node' });
+        compiled = compiled.match(/(?:twig\()(.*)(?:\))/m)[1] + ';';
+    } else {
+        compiled = '{}';
+    }
+
+    return 'module.exports = ' + compiled;
 };
