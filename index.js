@@ -32,7 +32,7 @@ module.exports = function(content) {
     template = Twig.twig({ ref: id, rethrow: true });
     if (template === null) {
         compile = true;
-        template = Twig.twig({ id: id, data: content, rethrow: true });
+        template = Twig.twig({ id: id, data: content, rethrow: true, strict_variables: true });
     }
 
     // Removing the template from cache
